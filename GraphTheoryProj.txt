@@ -1,0 +1,454 @@
+	delete all nodes in database
+MATCH (n)
+OPTIONAL MATCH (n)-[r]-()
+WITH n,r LIMIT 50000
+DELETE n,r
+RETURN count(n) as deletedNodesCount
+
+	delete a single node (x = node id)
+match (n) where id(n) = x detach delete n
+
+	Return all nodes
+
+Match (n) return n
+
+	Create Relationships between nodes
+match (d), (t)
+create (d)-[:example]->(t)
+
+
+			!!!NODES!!!
+
+	Create all the nodes
+
+create (: Day { day:'Monday'}), A
+(: Day { day:'Tuesday'}),
+(: Day { day:'Wednesday'}),
+(: Day { day:'Thursday'}),
+(: Day { day:'Friday'}),
+(: Room { room:'PF02'}),
+(: Room { room:'PF05'}),	
+(: Room { room:'PF06'}),	
+(: Room { room:'PF08'}),	
+(: Room { room:'PF18'}),	
+(: Room { room:'145'}),		
+(: Room { room:'162'}),		
+(: Room { room:'208'}),		
+(: Room { room:'223'}),	
+(: Room { room:'364'}),		
+(: Room { room:'373'}),		
+(: Room { room:'376'}),		
+(: Room { room:'379'}),		
+(: Room { room:'436 CR5'}),	
+(: Room { room:'470'}),		
+(: Room { room:'480 CR7'}),	
+(: Room { room:'481 CR4'}),	
+(: Room { room:'483 CR2'}),	
+(: Room { room:'482 CR3'}),	
+(: Room { room:'484 CR1'}),	
+(: Room { room:'903'}),		
+(: Room { room:'938'}),		
+(: Room { room:'939'}),		
+(: Room { room:'940'}),		
+(: Room { room:'941'}),		
+(: Room { room:'994'}),		
+(: Room { room:'995'}),		
+(: Room { room:'996'}),		
+(: Room { room:'997'}),	
+(: Room { room:'1031'}),
+(: Room { room:'1033'}),
+(: Course{title:'Software Development'}),
+(: Year{year:'Y1'}),
+(: Year{year:'Y2'}),
+(: Year{year:'Y3'}),
+(: Year{year:'Y4'}),
+(: Module1 { module:'SOFTWARE DESIGN & PROG DEV'}),
+(: Module1 { module:'GRAPH. USER INTERFACE&WEB DEV'}),
+(: Module1 { module:'ESSENTIAL MATHS FOR COMP 1&2'}),
+(: Module1 { module:'COMP TECH'}),
+(: Module1 { module:'E-BUSINESS ADMIN'}),
+(: Module2 { module:'DATABASE MGMT'}),
+(: Module2 { module:'ADV. PROCEDURAL PROGRAMMING'}),
+(: Module2 { module:'MOBILE APPLICATIONS DEVELOPMENT'}),
+(: Module2 { module:'APPLD NETWORKING TECH'}),
+(: Module2 { module:'DATA STRUCTURES & ALGORITHMS'}),
+(: Module2 { module:'ACCTG'}),
+(: Module2 { module:'PROJ MGT & COLLABORATIVE COMM'}),
+(: Module3 { module:'GRAPH THEORY'}),
+(: Module3 { module:'Software Testing'}),
+(: Module3 { module:'SERVER SIDE RAD'}),
+(: Module3 { module:'Database Mgmt Sys'}),
+(: Module3 { module:'MOBILE APPS'}),
+(: Module3 { module:'PROFESSIONAL PRACTICE IN IT'}),
+(: Module4 { module:'Artificial Intelligence'}),
+(: Module4 { module:'Theory of Algorithms'}),
+(: Module4 { module:'GESTURE BASED UI DEVELOPMENT'}),
+(: Module4 { module:'Applied Project & Minor Diss'}),
+(: Module4 { module:'Software Eng'}),
+(: Lecturer { name:'Deirdre O D'}),
+(: Lecturer { name:'Annette C'}),
+(: Lecturer { name:'Gerard H'}),
+(: Lecturer { name:'John H'}),
+(: Lecturer { name:'Daniel C'}),
+(: Lecturer { name:'Martin H'}),
+(: Lecturer { name:'Neil K'}),
+(: Lecturer { name:'Ian McL'}),
+(: Lecturer { name:'Damien C'}),
+(: Lecturer { name:'Patrick M'}),
+(: Lecturer { name:'Gerry A'}),
+(: Lecturer { name:'Valerie B'}),
+(: Lecturer { name:'Gemma O C'}),
+(: Lecturer { name:'Kevin, O B'}),
+(: Lecturer { name:'Michael D'}),
+(: Lecturer { name:'Aoife O B'}),
+(: Lecturer { name:'Brian McG'}),
+(: Lecturer { name:'John F'}),
+(: Lecturer { name:'Garrett J'}),
+(: Lecturer { name:'Owen F'})
+
+
+			!!!RELATIONSHIPS!!!
+
+
+	relate years to the course
+
+
+match (y: Year), (c: Course)
+create (c)-[:Has]->(y)
+
+	match the modules to their years
+
+match (m: Module1), (y: Year{year:'Y1'})
+create (m)-[:In]->(y)
+
+match (m: Module2), (y: Year{year:'Y2'})
+create (m)-[:In]->(y)
+
+match (m: Module3), (y: Year{year:'Y3'})
+create (m)-[:In]->(y)
+
+match (m: Module4), (y: Year{year:'Y4'})
+create (m)-[:In]->(y)
+
+
+	relate the lecturers to their modules
+
+
+match (l: Lecturer { name:'Deirdre O Donovan'}),(k: Lecturer { name:'Patrick Mannion'}), (m: Module2 { module:'APPLD NETWORKING TECH'}), (n: Module3 { module:'Database Mgmt Sys'})
+create (l)-[:Teaches]->(n), (l)-[:Teaches]->(m), (k)-[:Teaches]->(n)
+
+match (l: Lecturer { name:'Annette Cosgrove'}), (m: Module2 { module:'ACCTG'})
+create (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Gerard Harrison'}), (m: Module2 { module:'PROJ MGT & COLLABORATIVE COMM'}), (n: Module3 { module:'SERVER SIDE RAD'})
+create (l)-[:Teaches]->(n), (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'John Healy'}), (m: Module2 { module:'DATA STRUCTURES & ALGORITHMS'}), (n: Module4 { module:'Artificial Intelligence'})
+create (l)-[:Teaches]->(n), (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Daniel Cregg'}), (m: Module2 { module:'MOBILE APPLICATIONS DEVELOPMENT'})
+create (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Martin Hynes'}), (m: Module3 { module:'Software Testing'}), (n: Module2 { module:'ADV. PROCEDURAL PROGRAMMING'})
+create (l)-[:Teaches]->(n), (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Neil Keane'}), (m: Module2 { module:'DATABASE MGMT'})
+create (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Ian Mcloughlin'}), (m: Module3 { module:'GRAPH THEORY'}), (n: Module4 { module:'Theory of Algorithms'})
+create (l)-[:Teaches]->(n), (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Damien Costello'}), (m: Module2 { module:'MOBILE APPLICATIONS DEVELOPMENT'}), (n: Module3 { module:'PROFESSIONAL PRACTICE IN IT'}), (k: Module4 { module:'GESTURE BASED UI DEVELOPMENT'})
+create (l)-[:Teaches]->(n), (l)-[:Teaches]->(m), (l)-[:Teaches]->(k)
+
+match (l: Lecturer { name:'Gerry Agnew'}), (j: Lecturer { name:'Valerie Butler'}), (k: Lecturer { name:'Gemma O Callaghan'}), (m: Module1 { module:'SOFTWARE DESIGN & PROG DEV'})
+create (l)-[:Teaches]->(m), (k)-[:Teaches]->(m), (j)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Kevin, O Brien'}), (k: Lecturer { name:'Michael Duignan'}), (m: Module1 { module:'GRAPH. USER INTERFACE&WEB DEV'})
+create (l)-[:Teaches]->(m), (k)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Aoife O Brien'}), (m: Module1 { module:'ESSENTIAL MATHS FOR COMP 1&2'})
+create (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Brian Mc Ginley'}), (m: Module1 { module:'COMP TECH'})
+create (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'John K. Farrell'}), (m: Module1 { module:'E-BUSINESS ADMIN'})
+create (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Garrett Jordan'}), (m: Module4 { module:'Software Eng'})
+create (l)-[:Teaches]->(m)
+
+match (l: Lecturer { name:'Owen Foley'}), (m: Module4 { module:'Applied Project & Minor Diss'})
+create (l)-[:Teaches]->(m)
+
+
+	relate rooms to modules 
+
+
+match (m: Module1 { module:'SOFTWARE DESIGN & PROG DEV'}), (a: Room { room:'480 CR7'}),	(s: Room { room:'481 CR4'}), (d: Room { room:'483 CR2'}), (f: Room { room:'482 CR3'}), (g: Room { room:'436 CR5'}), (h: Room { room:'PF08'}), (j: Room { room:'PF05'}), (k: Room { room:'373'}), (l: Room { room:'941'}), (q: Room { room:'903'}), (w: Room { room:'994'})
+create (m)-[:LAB]->(a), (m)-[:LAB]->(s), (m)-[:LAB]->(d), (m)-[:LAB]->(f), (m)-[:LAB]->(g), (m)-[:LAB]->(h), (m)-[:LAB]->(h), (m)-[:LAB]->(j), (m)-[:LAB]->(k), (m)-[:LECTURE]->(l), (m)-[:LECTURE]->(q), (m)-[:LECTURE]->(w)
+
+match (m: Module1 { module:'GRAPH. USER INTERFACE&WEB DEV'}), (q: Room { room:'480 CR7'}), (w: Room { room:'484 CR1'}), (e: Room { room:'481 CR4'}), (r: Room { room:'436 CR5'}),(t: Room { room:'483 CR2'}), (y: Room { room:'941'})
+create(m)-[:LAB]->(q), (m)-[:LAB]->(w), (m)-[:LAB]->(e), (m)-[:LAB]->(r),
+(m)-[:LAB]->(t), (m)-[:LECTURE]->(y)
+
+match (m: Module1 { module:'ESSENTIAL MATHS FOR COMP 1&2'}), (q: Room { room:'484 CR1'}), (w: Room { room:'994'}), (e: Room { room:'481 CR4'}), (r: Room { room:'941'})
+create(m)-[:LAB]->(q), (m)-[:LECTURE]->(w), (m)-[:LAB]->(e), (m)-[:LECTURE]->(r)
+
+match (m: Module1 { module:'COMP TECH'}), (q: Room { room:'994'}), (w: Room { room:'483 CR2'}), (e: Room { room:'480 CR7'}), (r: Room { room:'484 CR1'}), (t: Room { room:'436 CR5'}), (y: Room { room:'941'})
+create(m)-[:LECTURE]->(q), (m)-[:LAB]->(w), (m)-[:LAB]->(e), (m)-[:LAB]->(r), (m)-[:LAB]->(t), (m)-[:LECTURE]->(y)
+
+match (m: Module1 { module:'E-BUSINESS ADMIN'}), (q: Room { room:'941'}), (w: Room { room:'994'})
+create(m)-[:LECTURE]->(q), (m)-[:LECTURE]->(w)
+
+match (m: Module2 { module:'ADV. PROCEDURAL PROGRAMMING'}), (q: Room { room:'436 CR5'}), (w: Room { room:'484 CR1'}), (e: Room { room:'483 CR2'}), (r: Room { room:'996'})
+create(m)-[:LAB]->(q), (m)-[:LAB]->(w), (m)-[:LAB]->(e), (m)-[:LECTURE]->(r)
+
+match (m: Module2 { module:'MOBILE APPLICATIONS DEVELOPMENT'}), (q: Room { room:'470'}), (w: Room { room:'480 CR7'}), (e: Room { room:'484 CR1'}), (r: Room { room:'223'})
+create(m)-[:LAB]->(q), (m)-[:LAB]->(w), (m)-[:LAB]->(e), (m)-[:LECTURE]->(r)
+
+match (m: Module2 { module:'APPLD NETWORKING TECH'}), (q: Room { room:'996'}), (w: Room { room:'939'}), (e: Room { room:'482 CR3'})
+create(m)-[:LECTURE]->(q), (m)-[:LECTURE]->(w), (m)-[:LAB]->(e)
+
+match (m: Module2 { module:'DATA STRUCTURES & ALGORITHMS'}), (q: Room { room:'436 CR5'}), (w: Room { room:'484 CR1'}), (e: Room { room:'364'}), (r: Room { room:'940'})
+create(m)-[:LAB]->(q), (m)-[:LAB]->(w), (m)-[:LECTURE]->(e), (m)-[:LECTURE]->(r)
+
+match (m: Module2 { module:'ACCTG'}), (q: Room { room:'480 CR7'}), (w: Room { room:'484 CR1'}), (e: Room { room:'940'}), (r: Room { room:'938'})
+create(m)-[:LAB]->(q),
+(m)-[:LAB]->(w),
+(m)-[:LECTURE]->(e), 
+(m)-[:LECTURE]->(r)
+
+match (m: Module2 { module:'PROJ MGT & COLLABORATIVE COMM'}), (q: Room { room:'940'}), (w: Room { room:'436 CR5'}), (e: Room { room:'481 CR4'})
+create(m)-[:LECTURE]->(q), 
+(m)-[:LAB]->(w), 
+(m)-[:LAB]->(e)
+
+match (m: Module3 { module:'GRAPH THEORY'}), (q: Room { room:'PF05'}), (w: Room { room:'162'}), (e: Room { room:'379'}), (r: Room { room:'938'}), (t: Room { room:'208'})
+create(m)-[:LAB]->(q), 
+(m)-[:LAB]->(w), 
+(m)-[:LECTURE]->(e), 
+(m)-[:LECTURE]->(r), 
+(m)-[:LECTURE]->(t)
+
+match (m: Module3 { module:'Software Testing'}), (q: Room { room:'481 CR4'}), (w: Room { room:'436 CR5'}), (: Room { room:'939'})
+create(m)-[:LAB]->(q), 
+(m)-[:LAB]->(w), 
+(m)-[:LECTURE]->(e)
+
+match (m: Module3 { module:'SERVER SIDE RAD'}), (q: Room { room:'436 CR5'}), (w: Room { room:'997'})
+create(m)-[:LAB]->(q), 
+(m)-[:LECTURE]->(w)
+
+match (m: Module3 { module:'Database Mgmt Sys'}), (q: Room { room:'994'}), (w: Room { room:'481 CR4'}), (e: Room { room:'482 CR3'}), (r: Room { room:'995'}), (t: Room { room:'483 CR2'})
+create(m)-[:LECTURE]->(q), 
+(m)-[:LAB]->(w), 
+(m)-[:LAB]->(e), 
+(m)-[:LECTURE]->(r), 
+(m)-[:LAB]->(t)
+
+match (m: Module3 { module:'MOBILE APPS'}), (q: Room { room:'223'}), (w: Room { room:'470'}), (e: Room { room:'PF18'})
+create(m)-[:LECTURE]->(q), 
+(m)-[:LAB]->(w), 
+(m)-[:LAB]->(e)
+
+match (m: Module3 { module:'PROFESSIONAL PRACTICE IN IT'}), (q: Room { room:'208'})
+create(m)-[:LECTURE]->(q)
+
+match (m: Module4 { module:'Artificial Intelligence'}), (q: Room { room:'995'}), (w: Room { room:'470'})
+create(m)-[:LECTURE]->(q),
+(m)-[:LAB]->(w)
+
+match (m: Module4 { module:'Theory of Algorithms'}), (q: Room { room:'379'}), (w: Room { room:'PF18'}), (e: Room { room:'1033'})
+create(m)-[:LECTURE]->(q),
+(m)-[:LAB]->(w),
+(m)-[:LECTURE]->(e)
+
+match (m: Module4 { module:'GESTURE BASED UI DEVELOPMENT'}), (q: Room { room:'470'}),  (w: Room { room:'PF18'})
+create(m)-[:LAB]->(q),
+(m)-[:LAB]->(w)
+
+match (m: Module4 { module:'Applied Project & Minor Diss'}), (q: Room { room:'PF06'})
+create(m)-[:LECTURE]->(q)
+
+match (m: Module4 { module:'Software Eng'}), (q: Room { room:'PF18'}), (w: Room { room:'482 CR3'}), (e: Room { room:'481 CR4'})
+create(m)-[:LAB]->(q),
+(m)-[:LAB]->(w),
+(m)-[:LAB]->(e)
+
+	Finally link the rooms to the days by time
+
+match(d: Day { day:'Monday'}), (q: Room { room:'483 CR2'}),(w: Room { room:'436 CR5'}), (e: Room { room:'995'}), (r: Room { room:'994'}), (t: Room { room:'483 CR2'}), (y: Room { room:'436 CR5'}), (u: Room { room:'470'}), (i: Room { room:'223'}), (o: Room { room:'470'}), (p: Room { room:'223'}), (a: Room { room:'996'}), (s: Room { room:'379'}), (f: Room { room:'223'}), (g: Room { room:'PF05'}), (h: Room { room:'436 CR5'}), (j: Room { room:'364'}), (k: Room { room:'481 CR4'}), (l: Room { room:'436 CR5'}), (z: Room { room:'436 CR5'}), (x: Room { room:'941'}), (c: Room { room:'483 CR2'}), (v: Room { room:'482 CR3'}), (b: Room { room:'481 CR4'}), (n: Room { room:'480 CR7'}), (m: Room { room:'484 CR1'}), (qq: Room { room:'484 CR1'})
+create(d)<-[: Time{time:'9-10'}]-(q)
+(d)<-[: Time{time:'9-10'}]-(w),
+(d)<-[: Time{time:'10-11'}]-(e), 
+(d)<-[: Time{time:'10-11'}]-(r),
+(d)<-[: Time{time:'10-11'}]-(t), 
+(d)<-[: Time{time:'10-11'}]-(y),
+(d)<-[: Time{time:'11-12'}]-(u),
+(d)<-[: Time{time:'11-12'}]-(i),
+(d)<-[: Time{time:'12-13'}]-(o), 
+(d)<-[: Time{time:'12-13'}]-(p),
+(d)<-[: Time{time:'12-13'}]-(a),
+(d)<-[: Time{time:'13-14'}]-(s),
+(d)<-[: Time{time:'13-14'}]-(f),
+(d)<-[: Time{time:'14-15'}]-(g),
+(d)<-[: Time{time:'14-15'}]-(h),
+(d)<-[: Time{time:'15-16'}]-(j),
+(d)<-[: Time{time:'16-17'}]-(k),
+(d)<-[: Time{time:'16-17'}]-(l),
+(d)<-[: Time{time:'17-18'}]-(z),
+(d)<-[: Time{time:'11-12'}]-(x), 
+(d)<-[: Time{time:'13-16'}]-(c),
+(d)<-[: Time{time:'13-16'}]-(v),
+(d)<-[: Time{time:'13-16'}]-(b),
+(d)<-[: Time{time:'13-16'}]-(n),
+(d)<-[: Time{time:'13-16'}]-(m),
+(d)<-[: Time{time:'16-17'}]-(qq)
+
+match(d: Day { day:'Tuesday'}), (q: Room { room:'470'}), (w: Room { room:'436 CR5'}), (e: Room { room:'481 CR4'}), (r: Room { room:'470'}), (t: Room { room:'436 CR5'}), (y: Room { room:'436 CR5'}), (u: Room { room:'481 CR4'}), (i: Room { room:'480 CR7'}), (o: Room { room:'PF18'}), (p: Room { room:'470'}), (a: Room { room:'940'}), (s: Room { room:'379'}), (f: Room { room:'470'}), (g: Room { room:'379'})
+create(d)<-[: Time{time:'9-10'}]-(q),
+(d)<-[: Time{time:'9-10'}]-(w),
+(d)<-[: Time{time:'9-10'}]-(e),
+(d)<-[: Time{time:'10-11'}]-(r),
+(d)<-[: Time{time:'10-11'}]-(t),
+(d)<-[: Time{time:'10-11'}]-(y),
+(d)<-[: Time{time:'10-11'}]-(u),
+(d)<-[: Time{time:'11-12'}]-(i),
+(d)<-[: Time{time:'11-12'}]-(o),
+(d)<-[: Time{time:'11-12'}]-(p),
+(d)<-[: Time{time:'12-13'}]-(a),
+(d)<-[: Time{time:'12-13'}]-(s),
+(d)<-[: Time{time:'12-13'}]-(f),
+(d)<-[: Time{time:'12-13'}]-(g),
+(d)<-[: Time{time:'13-14'}]-(h)
+
+match(d: Day { day:'Tuesday'}), (h: Room { room:'940'}), (j: Room { room:'939'}), (k: Room { room:'436 CR5'}), (l: Room { room:'436 CR5'}), (z: Room { room:'436 CR5'}), (x: Room { room:'480 CR7'}), (c: Room { room:'436 CR5'}), (v: Room { room:'480 CR7'}), (b: Room { room:'994'}), (n: Room { room:'994'}), (m: Room { room:'903'}), (qq: Room { room:'994'}), (ww: Room { room:'484 CR1'}), (ee: Room { room:'483 CR2'}), (rr: Room { room:'482 CR3'}), (tt: Room { room:'481 CR4'})
+create(d)<-[: Time{time:'14-15'}]-(j),
+(d)<-[: Time{time:'15-16'}]-(k),
+(d)<-[: Time{time:'16-17'}]-(l),
+(d)<-[: Time{time:'16-17'}]-(z),
+(d)<-[: Time{time:'17-18'}]-(x),
+(d)<-[: Time{time:'17-18'}]-(c),
+(d)<-[: Time{time:'9-10'}]-(v),
+(d)<-[: Time{time:'10-11'}]-(b),
+(d)<-[: Time{time:'10-11'}]-(n),
+(d)<-[: Time{time:'11-12'}]-(m),
+(d)<-[: Time{time:'13-14'}]-(qq),
+(d)<-[: Time{time:'14-17'}]-(ww),
+(d)<-[: Time{time:'14-17'}]-(ee),
+(d)<-[: Time{time:'14-17'}]-(rr)
+
+match(d: Day { day:'Wednesday'}), (q: Room { room:'162'}), (w: Room { room:'484 CR1'}), (e: Room { room:'482 CR3'}), (r: Room { room:'PF06'}), (t: Room { room:'938'}), (y: Room { room:'482 CR3'}), (u: Room { room:'436 CR5'}), (i: Room { room:'PF06'}), (o: Room { room:'208'}), (p: Room { room:'436 CR5'}), (a: Room { room:'481 CR4'}), (s: Room { room:'482 CR3'}), (f: Room { room:'1033'}), (g: Room { room:'481 CR4'})
+create(d)<-[: Time{time:'9-10'}]-(q),
+(d)<-[: Time{time:'9-10'}]-(w),
+(d)<-[: Time{time:'9-10'}]-(e),
+(d)<-[: Time{time:'10-11'}]-(r),
+(d)<-[: Time{time:'10-11'}]-(t),
+(d)<-[: Time{time:'11-12'}]-(y),
+(d)<-[: Time{time:'10-11'}]-(u),
+(d)<-[: Time{time:'11-12'}]-(i),
+(d)<-[: Time{time:'11-12'}]-(o), 
+(d)<-[: Time{time:'11-12'}]-(p),
+(d)<-[: Time{time:'11-12'}]-(a),
+(d)<-[: Time{time:'11-12'}]-(s),
+(d)<-[: Time{time:'12-13'}]-(f),
+(d)<-[: Time{time:'12-13'}]-(g)
+
+
+match(d: Day { day:'Wednesday'}),(h: Room { room:'482 CR3'}), (j: Room { room:'470'}), (k: Room { room:'997'}), (l: Room { room:'994'}), (z: Room { room:'484 CR1'}), (x: Room { room:'470'}), (c: Room { room:'470'}), (v: Room { room:'481 CR4'}), (b: Room { room:'484 CR1'}), (n: Room { room:'939'}),	(m: Room { room:'995'})	
+create(d)<-[: Time{time:'12-13'}]-(h),
+(d)<-[: Time{time:'13-14'}]-(j),
+(d)<-[: Time{time:'13-14'}]-(k),
+(d)<-[: Time{time:'14-15'}]-(l),
+(d)<-[: Time{time:'14-15'}]-(z),
+(d)<-[: Time{time:'14-15'}]-(x),
+(d)<-[: Time{time:'15-16'}]-(c),
+(d)<-[: Time{time:'15-16'}]-(v),
+(d)<-[: Time{time:'15-16'}]-(b),
+(d)<-[: Time{time:'15-16'}]-(n),
+(d)<-[: Time{time:'16-17'}]-(m)
+
+
+match(d: Day { day:'Wednesday'}), (q: Room { room:'480 CR7'}), (w: Room { room:'480 CR7'}), (e: Room { room:'484 CR1'}), (r: Room { room:'484 CR1'}), (t: Room { room:'470'}), (y: Room { room:'470'}), (u: Room { room:'994'}), (i: Room { room:'903'}), (o: Room { room:'483 CR2'}), (p: Room { room:'PF05'}), (a: Room { room:'373'}), (s: Room { room:'484 CR1'}), (f: Room { room:'PF02'}), (g: Room { room:'436 CR5'}),  (g: Room { room:'483 CR2'}), (h: Room { room:'PF08'}), (j: Room { room:'996'})
+create (d)<-[: Time{time:'16-17'}]-(q),
+(d)<-[: Time{time:'16-17'}]-(w),
+(d)<-[: Time{time:'17-18'}]-(e),
+(d)<-[: Time{time:'17-18'}]-(r),
+(d)<-[: Time{time:'17-18'}]-(t),
+(d)<-[: Time{time:'17-18'}]-(y),
+(d)<-[: Time{time:'9-10'}]-(u),
+(d)<-[: Time{time:'11-12'}]-(i),
+(d)<-[: Time{time:'12-13'}]-(o),
+(d)<-[: Time{time:'13-14'}]-(p),
+(d)<-[: Time{time:'13-14'}]-(a),
+(d)<-[: Time{time:'13-14'}]-(s),
+(d)<-[: Time{time:'14-15'}]-(f),
+(d)<-[: Time{time:'14-17'}]-(g),
+(d)<-[: Time{time:'14-17'}]-(h),
+(d)<-[: Time{time:'15-16'}]-(j),
+(d)<-[: Time{time:'17-18'}]-(k)
+
+match(d: Day { day:'Thursday'}), (q: Room { room:'376'}), (w: Room { room:'PF18'}), (e: Room { room:'940'}), (r: Room { room:'PF18'}), (t: Room { room:'1031'}), (y: Room { room:'996'}), (u: Room { room:'1031'}), (i: Room { room:'PF18'}), (o: Room { room:'PF18'}), (p: Room { room:'481 CR4'}), (a: Room { room:'940'}), (s: Room { room:'938'}), (f: Room { room:'482 CR3'}), (g: Room { room:'PF18'}), (h: Room { room:'PF18'}), (j: Room { room:'483 CR2'}), (k: Room { room:'436 CR5'}), (l: Room { room:'483 CR2'}), (z: Room { room:'436 CR5'}), (x: Room { room:'223'})
+create(d)<-[: Time{time:'9-10'}]-(q),
+(d)<-[: Time{time:'9-10'}]-(w),
+(d)<-[: Time{time:'9-10'}]-(e),
+(d)<-[: Time{time:'10-11'}]-(r),
+(d)<-[: Time{time:'10-11'}]-(t),
+(d)<-[: Time{time:'10-11'}]-(y),
+(d)<-[: Time{time:'11-12'}]-(u),
+(d)<-[: Time{time:'11-12'}]-(i),
+(d)<-[: Time{time:'12-13'}]-(o),
+(d)<-[: Time{time:'12-13'}]-(p),
+(d)<-[: Time{time:'12-13'}]-(a),
+(d)<-[: Time{time:'13-14'}]-(s),
+(d)<-[: Time{time:'13-14'}]-(f),
+(d)<-[: Time{time:'13-14'}]-(g),
+(d)<-[: Time{time:'14-15'}]-(h),
+(d)<-[: Time{time:'14-15'}]-(j),
+(d)<-[: Time{time:'14-15'}]-(k),
+(d)<-[: Time{time:'15-16'}]-(l),
+(d)<-[: Time{time:'15-16'}]-(z),
+(d)<-[: Time{time:'15-16'}]-(x)
+
+match(d: Day { day:'Thursday'}), (q: Room { room:'484 CR1'}), (w: Room { room:'483 CR2'}), (e: Room { room:'484 CR1'}), (r: Room { room:'483 CR2'}), (t: Room { room:'483 CR2'}), (y: Room { room:'481 CR4'}), (u: Room { room:'436 CR5'}), (i: Room { room:'484 CR1'}), (j: Room { room:'480 CR7'}), (k: Room { room:'483 CR2'}), (l: Room { room:'436 CR5'}), (z: Room { room:'480 CR7'}), (x: Room { room:'481 CR4'}), (c: Room { room:'941'}), (v: Room { room:'484 CR1'}), (b: Room { room:'PF02'}), (n: Room { room:'480 CR7'}), (m: Room { room:'941'})
+create (d)<-[: Time{time:'16-17'}]-(q),
+(d)<-[: Time{time:'16-17'}]-(w),
+(d)<-[: Time{time:'17-18'}]-(e),
+(d)<-[: Time{time:'17-18'}]-(r),
+(d)<-[: Time{time:'9-11'}]-(t),
+(d)<-[: Time{time:'9-11'}]-(y),
+(d)<-[: Time{time:'9-11'}]-(u),
+(d)<-[: Time{time:'9-10'}]-(i),
+(d)<-[: Time{time:'10-11'}]-(o),
+(d)<-[: Time{time:'11-13'}]-(p),
+(d)<-[: Time{time:'11-12'}]-(a),
+(d)<-[: Time{time:'11-13'}]-(s),
+(d)<-[: Time{time:'11-12'}]-(f),
+(d)<-[: Time{time:'13-14'}]-(g),
+(d)<-[: Time{time:'14-15'}]-(h),
+(d)<-[: Time{time:'15-16'}]-(j),
+(d)<-[: Time{time:'15-16'}]-(k),
+(d)<-[: Time{time:'16-17'}]-(l)
+
+match(d: Day { day:'Friday'}), (q: Room { room:'PF18'}), (w: Room { room:'482 CR3'}), (e: Room { room:'996'}), (r: Room { room:'PF18'}), (t: Room { room:'482 CR3'}), (y: Room { room:'996'}), (u: Room { room:'PF18'}), (i: Room { room:'208'}), (o: Room { room:'436 CR5'}), (p: Room { room:'482 CR3'}), (a: Room { room:'PF18'}), (s: Room { room:'436 CR5'}), (f: Room { room:'482 CR3'}), (g: Room { room:'941'}), (h: Room { room:'994'}), (j: Room { room:'941'}), (k: Room { room:'941'})
+create(d)<-[: Time{time:'9-10'}]-(q),
+(d)<-[: Time{time:'9-10'}]-(w),
+(d)<-[: Time{time:'9-10'}]-(e),
+(d)<-[: Time{time:'10-11'}]-(r),
+(d)<-[: Time{time:'10-11'}]-(t),
+(d)<-[: Time{time:'10-11'}]-(y),
+(d)<-[: Time{time:'11-12'}]-(u),
+(d)<-[: Time{time:'11-12'}]-(i),
+(d)<-[: Time{time:'11-12'}]-(o),
+(d)<-[: Time{time:'11-12'}]-(p),
+(d)<-[: Time{time:'12-13'}]-(a),
+(d)<-[: Time{time:'12-13'}]-(s),
+(d)<-[: Time{time:'12-13'}]-(f),
+(d)<-[: Time{time:'10-11'}]-(g),
+(d)<-[: Time{time:'11-12'}]-(h),
+(d)<-[: Time{time:'12-13'}]-(j),
+(d)<-[: Time{time:'13-14'}]-(k)
+
+		END.
