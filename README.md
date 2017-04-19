@@ -3,18 +3,6 @@
 
 ## Introduction
 
-The structure in which this graph db is broken up into are as follows:
-
-| Name | Type | Relationship | Receiver |
-| --- | --- | --- | --- |
-| Day | Node | Null | null |
-| Room | Node | Time | Day |
-| Module | Node | Lab, Lecture | Room |
-| Module | Node | In | Years |
-| Year | Node | null | null |
-| Course | Node | Has | Years |
-| Lecturer | Node | Teaches | Module |
-
 In this project we we're tasked wih taking our timetable and putting it into a graph database.
 I decided to take the course as a whole and display the time table for all with clear segementation of years and what is in each year.
 Before building the graph I decided that it would be best to record all data that would be required in a text file. 
@@ -33,6 +21,18 @@ I had come to 4 different con clusions on how I might approach the problem seen 
 
 ![123](http://imgur.com/5YqFuIo.png)
 ![4](http://imgur.com/FkuX635.png)
+
+The structure in which this graph db is broken up into are as follows:
+
+| Name | Type | Relationship | Receiver |
+| --- | --- | --- | --- |
+| Day | Node | Null | null |
+| Room | Node | Time | Day |
+| Module | Node | Lab, Lecture | Room |
+| Module | Node | In | Years |
+| Year | Node | null | null |
+| Course | Node | Has | Years |
+| Lecturer | Node | Teaches | Module |
 
 I ended up opting for the 4th option as this seemed to be the most logical, although there are many other viable routes I could have taken
 when building this database. 
