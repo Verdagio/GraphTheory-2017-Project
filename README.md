@@ -52,7 +52,7 @@ The text file which I spoke of is attached to this git repository named GraphThe
 Half the point of writing this was that if there were any issues during the build of the database all queries were easily available for future use. 
 
 See the graph in it's final form here:
-![graph](http://imgur.com/a/trOJH.png)
+![graph](http://imgur.com/xMscQFW.png)
 
 ## Queries
 
