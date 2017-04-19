@@ -70,6 +70,12 @@ Return Labs on a Monday for all years:
 ```
 ![labs](http://imgur.com/oO8gOrP.png)
 
+Or everything on Monday
+```
+match (a: Day {day: 'Monday'})-[]-(n)-[]-(m: Module)-[]-(y: Year) return m, n, a, y
+```
+![all](http://imgur.com/LqXUfdC.png)
+
 what if we want just the Year 2 on a day?
 ```
 (a: Day {day: 'Monday'})-[]-(n)-[]-(m: Module) where m.year = 2 return m, n, a
