@@ -4,8 +4,9 @@
 ## Introduction
 
 The structure in which this graph db is broken up into are as follows:
+
 | Name | Type | Relationship | Receiver |
-| ------ | ------ | ------ | ------ |
+| --- | --- | --- | --- |
 | Day | Node | Null | null |
 | Room | Node | Time | Day |
 | Module | Node | Lab / Lecture | Room |
@@ -21,9 +22,9 @@ From data mining I extracted modules, rooms, lecturers. I then filtered this dat
 
 #### What is Neo4J?
 
-Neo4j is a graph database management system developed by Neo Technology, Inc. 
-Described by its developers as an ACID-compliant transactional database with native graph storage and processing, 
-Neo4j is the most popular graph database according to db-engines.com. [Reference](https://en.wikipedia.org/wiki/Neo4j)
+> Neo4j is a graph database management system developed by Neo Technology, Inc. 
+> Described by its developers as an ACID-compliant transactional database with native graph storage and processing, 
+> Neo4j is the most popular graph database according to db-engines.com. [Reference](https://en.wikipedia.org/wiki/Neo4j)
 
 ## Structure
 
