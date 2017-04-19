@@ -39,10 +39,13 @@ After some experimentation I was ready to begin building the graph.
 
 Rather than jumping straight into the console I decided to build up all the queries into a text file which I could simply copy and paste into the console...
 
-This also gave me the idea that with a simple script could be written to automate the process, while I did follow through on writing the script due to time constraints, I do think this would be a simple enough task essentiall the script would read from a file and write to the console.
+This also gave me the idea that with a simple script could be written to automate the process, while I did follow through on writing the script due to time constraints, I do think this would be a simple enough task essentially the script would read from a file and write to the console.
 
 The text file which I spoke of is attached to this git repository named GraphTheoryProj.txt for your interest.
 Half the point of writing this was that if there were any issues during the build of the database all queries were easily available for future use. 
+
+See the graph in it's final form here:
+(graph)[http://imgur.com/a/trOJH.png]
 
 
 
