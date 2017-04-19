@@ -19,6 +19,12 @@ I decided to take the course as a whole and display the time table for all with 
 Before building the graph I decided that it would be best to record all data that would be required in a text file. 
 From data mining I extracted modules, rooms, lecturers. I then filtered this data down to the relevant data required for the task, removing rooms, & lecturers and began to build my queries from this.
 
+#### What is Neo4J?
+
+Neo4j is a graph database management system developed by Neo Technology, Inc. 
+Described by its developers as an ACID-compliant transactional database with native graph storage and processing, 
+Neo4j is the most popular graph database according to db-engines.com. [Reference](https://en.wikipedia.org/wiki/Neo4j)
+
 ## Structure
 
 When approaching the problem I took some time to draw out and plan how the data should be represented.
@@ -47,11 +53,54 @@ Half the point of writing this was that if there were any issues during the buil
 See the graph in it's final form here:
 (graph)[http://imgur.com/a/trOJH.png]
 
+## Queries
 
+Here are a few queries which you can carry out:
 
+Return Lectures on a Monday for all years:
+```
+ match (a: Year)-[b]-(n)-[r: LECTURE]-(m)-[t: Time]-(d: Day) where d.day = 'Monday' return r,n,m,t,d,a,b
+```
+![lectures](http://imgur.com/rSWuXV2.png)
+
+Return Labs on a Monday for all years:
+```
+ match (a: Year)-[b]-(n)-[r: LAB]-(m)-[t: Time]-(d: Day) where d.day = 'Monday' return r,n,m,t,d,a,b
+```
+![labs](http://imgur.com/oO8gOrP.png)
+
+what if we want just the Year 2 on a day?
+```
+(a: Day {day: 'Monday'})-[]-(n)-[]-(m: Module) where m.year = 2 return m, n, a
+```
+![y3](http://imgur.com/6vGF6kv.png)
+
+Or year 4's whole week?
+```
+match (a: Day)-[]-(n)-[]-(m: Module) where m.year = 4 return m, n, a
+```
+![week](http://imgur.com/Jf50YiD.png)
+
+We can carry out other queries such as what the lecturer teaches and to whom:
+```
+match (l: Lecturer)-[r]-(m)-[i: In]-(y) where l.name = 'INSERT NAME HERE' return l, r, m,y
+```
+![lecturer](http://imgur.com/rXd7FuY.png)
+
+These are just some of the queries we can carry out. the naming convention of all the nodes are as follows
+```
+(: Course {title: 'example')
+(: Year {year: 0})
+(: Module {module: 'example', year: 0})
+(: Lecturer {name: 'example'})
+(: Room {room: 'example'})
+(: Day {day: 'example'})
+```
 ## Conclusion
 
-While I do feel that I've only scraped the surface of what Neo4J can offer, I feel like I have learned quite a bit, & would reconsider 
-the structure in which I have used in this prototype. I also believe there could be far more effecient ways of querying the console to make the process a little less repetitive.
+While I do feel that I've only scraped the surface of what Neo4J can offer, I feel like I have learned quite a bit,
+& would reconsider the structure in which I have used in this prototype. Optimizing the existing database could take some time
+but after just a few small changes made from the original design queries are made easier.
+
 
  
