@@ -9,8 +9,8 @@ The structure in which this graph db is broken up into are as follows:
 | --- | --- | --- | --- |
 | Day | Node | Null | null |
 | Room | Node | Time | Day |
-| Module | Node | Lab / Lecture | Room |
-| Module | Node | Is in | Years |
+| Module | Node | Lab, Lecture | Room |
+| Module | Node | In | Years |
 | Year | Node | null | null |
 | Course | Node | Has | Years |
 | Lecturer | Node | Teaches | Module |
